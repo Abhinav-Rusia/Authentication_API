@@ -1,4 +1,4 @@
-import { PASSWORD_RESET_REQUEST_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE, VERIFICATION_EMAIL_TEMPLATE } from "./emailTemplates.js";
+import { PASSWORD_RESET_REQUEST_TEMPLATE, PASSWORD_RESET_SUCCESS_TEMPLATE, VERIFICATION_EMAIL_TEMPLATE, WELCOME_EMAIL_TEMPLATE } from "./emailTemplates.js";
 import { transporter, sender } from "./email.config.js"
 
 export const sendVerificationEmail = async (email, verificationToken) => {
@@ -25,7 +25,7 @@ export const sendWelcomeEmail = async (email, name) => {
             from: `"${sender.name}" <${sender.email}>`,
             to: email,
             subject: "Welcome to Auth Organisation",
-            html: htmlContent,
+            html: WELCOME_EMAIL_TEMPLATE.replace("{userName}", name),
         });
 
         console.log("Welcome Email sent:", info.messageId);
